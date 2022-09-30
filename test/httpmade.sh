@@ -43,6 +43,6 @@ spec:
     nodePort: $n
   selector:
     app: ${pagename}
-  type: NodePort " > ~/test/http-${pagename}.yml
+  type: NodePort " > ~/test/${pagename}/http-${pagename}.yml
 
-kubectl apply -f ~/test/http-${pagename}.yml
+kubectl apply -f ~/test/${pagename}/http-${pagename}.yml

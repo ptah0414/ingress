@@ -1,48 +1,41 @@
-#!/bin/bash
-n=`expr $number + 30000`
-echo "
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${pagename}
+  name: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ${pagename}
-  template: # 컨테이너 내용 
+      app: default
+  template:
     metadata:
-      name: ${pagename}
+      name: default
       labels:
-        app: ${pagename}
+        app: default
     spec:
       containers:
-      - name: ${pagename}
-        image: httpd
+      - name: default
+        image: nginx
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: ${pagename}vol
-          mountPath: /usr/local/apache2/htdocs
+        - name: defaultvol
+          mountPath: /usr/share/nginx/html
       volumes:
-      - name: ${pagename}vol
+      - name: defaultvol
         configMap:
-          name: ${pagename}cm 
-        
----     
-
+          name: defaultcm
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ${pagename}
+  name: default
 spec:
   ports:
-  - name: ${pagename}-port
-    port: 80 # service의 포트
-    targetPort: 80 # pod의 포트 
-    nodePort: $n
+  - name: default-port
+    port: 80             
+    targetPort: 80       
+    nodePort: 30000    
   selector:
-    app: ${pagename}
-  type: NodePort " > ~/test/http-${pagename}.yml
-
-kubectl apply -f ~/test/http-${pagename}.yml
+    app: default
+  type: NodePort

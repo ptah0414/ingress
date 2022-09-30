@@ -41,6 +41,6 @@ spec:
     nodePort: $n
   selector:
     app: ${pagename}
-  type: NodePort " > ~/test/nginx-${pagename}.yml
+  type: NodePort " > nginx-${pagename}.yml
 
-kubectl apply -f ~/test/nginx-${pagename}.yml
+kubectl apply -f nginx-${pagename}.yml

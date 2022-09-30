@@ -47,7 +47,7 @@ else if [ "$webservice" = "$a" ];
                 cd ${pagename}
                 echo "${pagename} page-http" > index.html
                 kubectl create cm ${pagename}cm --from-file index.html
-                ~/test/httpmade.sh#ingress 파일에 추가
+                ~/test/httpmade.sh #ingress 파일에 추가
                 echo "
         - path: /${pagename}
           pathType: Prefix
@@ -58,15 +58,5 @@ else if [ "$webservice" = "$a" ];
                 number: 80" >> ~/test/ingress-config.yml
         fi
 fi
-#만들어진 페이지 삭제하기
-if [ $delete -eq $b ];
-then
-        rm -rf $deletepagename
-        kubectl delete cm ${deletepagename}cm
-				grep -n $deletepagename ~/test/ingress-config.yml > a.txt
-				d=`awk -F : '{print $1}' a.txt` 
-				e=`expr $d + 6`
-				sed "$d, ${e}d" ~/test/ingress-config.yml > b.txt
-				cat b.txt > ~/test/ingress-config.yml
 
 kubectl apply -f ~/test/ingress-config.yml
