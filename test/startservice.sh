@@ -15,7 +15,7 @@ then
                 #원래는 사용자에게 페이지 내용 받아야함
                 echo "default page-nginx" > index.html
                 kubectl create cm defaultcm --from-file index.html
-                kubectl apply -f ~/test/nfs-nginx.yml
+                kubectl apply -f ~/ingress/test/nfs-nginx.yml
 
         else
                 mkdir default
@@ -23,7 +23,7 @@ then
                 #원래는 사용자에게 페이지 내용 받아야함
                 echo "default page-httpd" > index.html
                 kubectl create cm defaultcm --from-file index.html
-                kubectl apply -f ~/test/nfs-httpd.yml
+                kubectl apply -f ~/ingress/test/nfs-httpd.yml
         fi
 else if [ "$webservice" = "$a" ];
         then
@@ -32,7 +32,7 @@ else if [ "$webservice" = "$a" ];
                 #원래는 사용자에게 페이지 내용 받아야함
                 echo "${pagename} page-nginx" > index.html
                 kubectl create cm ${pagename}cm --from-file index.html
-                ~/test/nginxmade.sh
+                ~/ingress/test/nginxmade.sh
                 #ingress 파일에 추가
                 echo "
         - path: /${pagename}
@@ -41,7 +41,7 @@ else if [ "$webservice" = "$a" ];
             service:
               name: ${pagename}
               port:
-                number: 80" >> ~/test/ingress-config.yml
+                number: 80" >> ~/ingress/test/ingress-config.yml
         else
                 mkdir ${pagename}
                 cd ${pagename}
@@ -55,8 +55,8 @@ else if [ "$webservice" = "$a" ];
             service:
               name: ${pagename}
               port:
-                number: 80" >> ~/test/ingress-config.yml
+                number: 80" >> ~/ingress/test/ingress-config.yml
         fi
 fi
 
-kubectl apply -f ~/test/ingress-config.yml
+kubectl apply -f ~/ingress/test/ingress-config.yml
