@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: default
+  template:
+    metadata:
+      name: default
+      labels:
+        app: default
+    spec:
+      containers:
+      - name: default
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: defaultvol
+          mountPath: /usr/local/apache2/htdocs
+      volumes:
+      - name: defaultvol
+        configMap:
+          name: defaultcm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: default
+spec:
+  ports:
+  - name: default-port
+    port: 80             # service의 포트(노드의 포트 아님. 노드포트는 할당해주지 않아도 자동 할당)
+    targetPort: 80       # Pod의 포트
+    nodePort: 30001      # 안해도 되지만 그냥 해줌
+  selector:
+    app: default
+  type: NodePort
