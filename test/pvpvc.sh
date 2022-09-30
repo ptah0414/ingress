@@ -14,7 +14,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: 192.168.1.101
-    path: /${pagename} " > ~/test/${pagename}pvpvc/${pagename}pv.yml
+    path: /${pagename} " > ~/test/$pagename/${pagename}pvpvc/${pagename}pv.yml
 
 
 echo "
@@ -27,7 +27,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 50Mi" > ~/test/${pagename}pvpvc/${pagename}pvc.yml
+      storage: 50Mi" > ~/test/$pagename/${pagename}pvpvc/${pagename}pvc.yml
 
 
-kubectl apply -f ~/test/${pagename}pvpvc/.
+kubectl apply -f ~/test/$pagename/${pagename}pvpvc/.
