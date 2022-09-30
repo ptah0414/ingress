@@ -47,7 +47,7 @@ else if [ "$webservice" = "$a" ];
                 cd ${pagename}
                 echo "${pagename} page-http" > index.html
                 kubectl create cm ${pagename}cm --from-file index.html
-                ~/test/httpmade.sh#ingress 파일에 추가
+                ~/test/httpmade.sh #ingress 파일에 추가
                 echo "
         - path: /${pagename}
           pathType: Prefix
