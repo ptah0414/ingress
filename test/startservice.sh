@@ -4,13 +4,14 @@ a=nginx
 b=1
 # 시작하기 전에 ingress controller 배포해야함.
 
-
+# $1 -> pagename, $2 -> gir url , $3 -> service
 # nginx/http 배포
 if [ $delete -eq $b ];
 then
         rm -rf $deletepagename
         kubectl delete cm ${deletepagename}cm
         kubectl delete deployment ${deletepagename}
+        kubectl delete svc ${deletepagename}
         grep -n $deletepagename ~/ingress/test/ingress-config.yml > a.txt
         d=`awk -F : '{print $1}' a.txt`
         e=`expr $d + 6`
@@ -58,7 +59,7 @@ else
                         cd ${pagename}
                         echo "${pagename} page-http" > index.html
                         kubectl create cm ${pagename}cm --from-file index.html
-                        ~/test/httpmade.sh #ingress 파일에 추가
+                        ~/ingress/test/httpmade.sh #ingress 파일에 추가
                         echo "
         - path: /${pagename}
           pathType: Prefix
