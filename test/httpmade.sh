@@ -1,5 +1,12 @@
 #!/bin/bash
 n=`expr $number + 30000`
+#!/bin/bash
+
+number=$1
+pagename=$2
+
+
+n=`expr $number + 30000`
 echo "
 apiVersion: apps/v1
 kind: Deployment
