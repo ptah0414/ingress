@@ -50,6 +50,6 @@ spec:
     nodePort: $n
   selector:
     app: ${pagename}
-  type: NodePort " > ~/ingress/test/${pagename}/http-${pagename}.yml
+  type: NodePort " > ~/ingress/test/http-${pagename}.yml
 
-kubectl apply -f ~/ingress/test/${pagename}/http-${pagename}.yml
+kubectl apply -f ~/ingress/test/http-${pagename}.yml
